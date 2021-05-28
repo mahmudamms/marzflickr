@@ -1,2 +1,2 @@
-# marzflickr
-The most popular collection of images around the world
+# My Dreams - Flickr
+Only for Test React Native + Flickr API
