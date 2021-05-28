@@ -145,6 +145,15 @@ class Detailphoto extends React.Component {
                     left
                   />
                 </Block>
+                <Block style={{width: '100%',paddingBottom:2}}>
+                  <Text
+                    size={10}
+                    color={nowTheme.COLORS.GRAY}
+                    title={this.state.location}
+                    bold
+                    left
+                  />
+                </Block>
                 <Block style={{width: '100%',paddingTop:10,alignItems:"center"}}>
                     {
                             this.state.urls.map((item, index) => {
@@ -172,15 +181,7 @@ class Detailphoto extends React.Component {
                 </Block>
                 
                
-                <Block style={{width: '100%',paddingBottom:2}}>
-                  <Text
-                    size={10}
-                    color={nowTheme.COLORS.GRAY}
-                    title={this.state.location}
-                    bold
-                    left
-                  />
-                </Block>
+                
                 <Block style={{width: '100%'}}>
                     <TextGalio style={{fontWeight: "bold"}}>Tags :</TextGalio>
                     <FlatList
