@@ -32,24 +32,6 @@ var gradientColor = ['#2EB62C', '#57C84D', '#83D475', '#ABE098', '#C5E8B7'];
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function ProfileStack({route, props}) {
-  const { id } = route.params; 
-
-  return (
-    <Stack.Navigator mode="card" headerMode="none">
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          headerTransparent: false
-        }}
-        initialParams={{
-          id: id,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
 
 function HomeStack({route, props}) {
   return (
@@ -58,7 +40,9 @@ function HomeStack({route, props}) {
         name="Dashboard"
         component={Home}
         options={{
-          headerTransparent: false,
+          headerStyle: {
+            backgroundColor: '#ab0025',
+          },
         }}
       />
     </Stack.Navigator>
@@ -127,7 +111,6 @@ export default function OnboardingStack(props) {
 
       <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="Camera" component={CameraStack} />  
-      <Stack.Screen name="Profile" component={ProfileStack} />
       <Stack.Screen name="Detail Photo" component={DetailDataStack} />
 
     </Stack.Navigator>

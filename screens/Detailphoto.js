@@ -104,9 +104,11 @@ class Detailphoto extends React.Component {
     } 
 
     renderTags = ({item,index}) => {    
-        return(          
-            <TextGalio style={{fontWeight: "bold",backgroundColor:"#bdbdbd",padding:5,paddingLeft:10,borderRadius: 10,}}>{item.raw}</TextGalio>
-        )
+        return(  
+          <View style={{paddingLeft:5,paddingBottom:2}} >
+            <TextGalio style={{fontWeight: "bold",backgroundColor:"#e6e6e6",padding:5,borderRadius: 10,}}>{item.raw}</TextGalio>
+          </View>     
+            )
       }
 
     renderContent = () => {
@@ -219,7 +221,7 @@ class Detailphoto extends React.Component {
                 gradientColor={gradientColor} 
                 borderRadius={5} 
                 profile={false} 
-                headerHeight={5} 
+                headerHeight={10} 
             /> 
         ) 
     } 
