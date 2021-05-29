@@ -23,7 +23,7 @@ async function readData() {
   var data_user = await AsyncStorage.getItem('data_user');
   var data_user = JSON.parse(data_user);
 
-  fullname  = data_user.full_name;
+  
 }
 
 function CustomDrawerContent({

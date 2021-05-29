@@ -39,8 +39,12 @@ class Home extends React.Component {
       method: "flickr.photos.search",
       api_key: "92eb970121bc32aea2b84967199a0074",
       format: "json",
-      tags: "Family",
+      tags: "",
+      tags_default: "Sport Cars",
       per_page: "10",
+      max_page: 6,
+      firstLoop: 1,
+      page: "1",
       nojsoncallback: "1",
       search_status: false,
       refreshing: false,
@@ -60,7 +64,7 @@ class Home extends React.Component {
   
   LoadPictures = async () => {
     try {      
-      var url = "https://api.flickr.com/services/rest/?method="+this.state.method+"&api_key="+this.state.api_key+"&format="+this.state.format+"&tags="+this.state.tags+"&per_page="+this.state.per_page+"&page="+this.state.page+"&nojsoncallback="+this.state.nojsoncallback;
+      var url = "https://api.flickr.com/services/rest/?method="+this.state.method+"&api_key="+this.state.api_key+"&format="+this.state.format+"&tags="+this.state.tags_default+"&per_page="+this.state.per_page+"&page="+this.state.page+"&nojsoncallback="+this.state.nojsoncallback;
       await fetch(url)
       .then(response => response.json())
       .then(data => {       
@@ -113,10 +117,65 @@ class Home extends React.Component {
     );
   }
 
+  handlepagination = (page) => {
+    var statusCurPage = page + 1;
+    if(this.state.max_page == statusCurPage){
+      var add_firstLoop = page;
+      var add_maxPage = statusCurPage + 4;
+      this.setState({ page: page, isLoading: true, firstLoop: add_firstLoop, max_page: add_maxPage });
+    } else {
+      this.setState({ page: page, isLoading: true });
+    }
+   
+    this.LoadPictures();
+  };
+
+  handleBacktoFirstpage = (page) => {
+   
+    var add_firstLoop = 1;
+    var add_maxPage = 6;
+    this.setState({ page: page, isLoading: true, firstLoop: add_firstLoop, max_page: add_maxPage });
+      
+    this.LoadPictures();
+  };
+
+
+  backtoFirstPage = () => {
+    if(this.state.firstLoop != 1){
+       return (
+        <Button  
+          onPress={() => this.handleBacktoFirstpage()} 
+          title={" << "}
+          color= "#ad0000" 
+        /> 
+      )
+    } else {
+       return null;
+    }   
+ }
+
+  
   render() {
+    var pagination = [];
+    var max_page = this.state.max_page;
+    var first_loop = this.state.firstLoop;
+      for(let i = first_loop; i < max_page; i++){
+        pagination.push(   
+            <Button 
+              key = {i} 
+              onPress={() => this.handlepagination(i)} 
+              title={" "+i.toString()+" "}
+              color= {this.state.page == i ? "#4287f5" : "#ad0000" }
+              style={{width:50,padding:10}}
+            />           
+        )
+      }
+
     return (     
         <Block flex style={{flex: 1, backgroundColor: nowTheme.COLORS.WHITE}}>
           <Header 
+           statusBarProps={{ barStyle: 'light-content' }}
+           barStyle="light-content" // or directly
             containerStyle={{
               backgroundColor: '#ad0000',
               justifyContent: 'space-around',
@@ -139,6 +198,12 @@ class Home extends React.Component {
           > 
           <View style={{flex: 1,paddingHorizontal: 20, paddingVertical: 20,borderRadius: 10, backgroundColor: nowTheme.COLORS.WHITE}}>  
             { this.state.isLoading == true ? this.Loading() : this.renderContent() }  
+          </View>
+          <View style={{alignItems:"center",paddingBottom:10}}>
+            <View style={styles.container_btn}>
+              {this.backtoFirstPage()}   
+              { pagination }
+            </View>
           </View>
           </ScrollView>
         </Block>
@@ -163,7 +228,7 @@ class Home extends React.Component {
 
   renderItem = (item, index) => {    
     var srcPath = 'https://farm'+item.farm+'.staticflickr.com/'+item.server+'/'+item.id+'_'+item.secret+'.jpg';
-     
+
     return( 
       <Block key={index} style={{paddingBottom: 10}}>   
 
@@ -200,12 +265,8 @@ class Home extends React.Component {
               
             </Block>           
           </Block>
-        </TouchableOpacity>   
-           
+        </TouchableOpacity> 
       </Block>
-
-       
-      
     )
   }
 
@@ -217,8 +278,13 @@ const styles = StyleSheet.create({
     paddingVertical: theme.SIZES.BASE,
     paddingHorizontal: 2,
     fontFamily: 'montserrat-regular'
-
-  }
+  },
+  container_btn: {
+    width: "60%",
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
 export default Home;

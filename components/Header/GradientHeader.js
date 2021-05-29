@@ -91,7 +91,7 @@ class GradientHeader extends React.Component {
                     <Block style={{width: left_width}}>
                       <Block center>
                       <TouchableOpacity
-                          onPress={() =>  this.props.navigation.push('App')}
+                          onPress={() =>  this.props.navigation.push('Home')}
                         >
                           <Icon
                               size={28}

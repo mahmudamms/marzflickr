@@ -58,7 +58,7 @@ function HomeStack({route, props}) {
         name="Dashboard"
         component={Home}
         options={{
-          headerTransparent: false
+          headerTransparent: false,
         }}
       />
     </Stack.Navigator>
@@ -117,47 +117,15 @@ function CameraStack({route, props}) {
   );
 }
 
-function AppStack(props) {
-  return (
-    <Drawer.Navigator
-      style={{ flex: 1 }}
-      drawerContent={props => <CustomDrawerContent {...props} />}
-      drawerStyle={{
-        backgroundColor: nowTheme.COLORS.PRIMARY,
-        width: width * 0.7
-      }}
-      drawerContentOptions={{
-        activeTintcolor: nowTheme.COLORS.WHITE,
-        inactiveTintColor: nowTheme.COLORS.WHITE,
-        activeBackgroundColor: "transparent",
-        itemStyle: {
-          width: width * 0.75,
-          backgroundColor: "transparent",
-          paddingVertical: 16,
-          paddingHorizonal: 12,
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-          overflow: "hidden"
-        },
-        labelStyle: {
-          fontSize: 18,
-          marginLeft: 12,
-          fontWeight: "normal"
-        }
-      }}
-      initialRouteName="Home"
-    >
-      <Drawer.Screen name="Home" component={HomeStack} />
-    </Drawer.Navigator>
-  );
-}
+
+
+
 
 export default function OnboardingStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="none">
 
-      <Stack.Screen name="App" component={AppStack} />
+      <Stack.Screen name="Home" component={HomeStack} />
       <Stack.Screen name="Camera" component={CameraStack} />  
       <Stack.Screen name="Profile" component={ProfileStack} />
       <Stack.Screen name="Detail Photo" component={DetailDataStack} />
